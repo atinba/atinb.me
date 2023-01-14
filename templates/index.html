@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <div class="page-header">
+        {{ section.title }}<span class="primary-color" style="font-size: 1.6em">.</span>
+    </div>
+    {{ section.content | safe }}
+{% endblock main_content %}

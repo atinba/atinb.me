@@ -1,0 +1,58 @@
+{% import "macros/macros.html" as post_macros %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# Site title #}
+    {% set current_path = current_path | default(value="/") %}
+    {% if current_path == "/" %}
+    <title>
+        {{ config.title | default(value="Home") }}
+    </title>
+    {% else %}
+    <title>
+        {{ page.title | default(value=config.title) | default(value="Post") }}
+    </title>
+    {% endif %}
+
+    {# Favicon #}
+    {% if config.extra.favicon %}
+        <link rel="icon" type="image/png" href={{ config.extra.favicon }} />
+    {% endif %}
+
+    <link href={{ get_url(path="fonts.css") }} rel="stylesheet" />
+
+
+    {% if config.extra.mathjax | default(value=false) %}
+        {% if config.extra.mathjax_dollar_inline_enable | default(value=false) %}
+            <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+            </script>
+        {% endif %}
+        <script type="text/javascript" id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    {% endif %}
+
+    {# RSS #}
+    <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path="atom.xml", trailing_slash=false) }}">
+
+    {# Theme #}
+    {% set theme = config.extra.theme | default(value="light") %}
+    {% if theme == "dark" %}
+        <link rel="stylesheet" type="text/css" href="{{ get_url(path="theme/dark.css") }}"/>
+    {% elif theme == "light" %}
+        <link rel="stylesheet" type="text/css" href="{{ get_url(path="theme/light.css") }}"/>
+    {% elif theme == "auto" %}
+        <link rel="stylesheet" type="text/css" href="{{ get_url(path="theme/light.css") }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ get_url(path="theme/dark.css") }}" media="(prefers-color-scheme: dark)"/>
+    {% endif %}
+
+    <link rel="stylesheet" type="text/css" media="screen" href={{ get_url(path="main.css") }} />
+</head>
