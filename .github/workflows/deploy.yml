@@ -1,0 +1,24 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Zola site with Nix Flakes
+        uses: cachix/install-nix-action@v14
+        with:
+          install_url: https://github.com/nix-community/nix-unstable-installer/releases/download/nix-2.13.0pre20221223_14f7dae/install
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - run: nix flake check
+      - run: nix build --out-link build
+      - name: Deploy to GH Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          cname: atinb.me
