@@ -23,7 +23,6 @@
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             zola
-            vscodium
           ];
         };
       }

@@ -6,4 +6,6 @@ I'm **Atin Bainada**, a final year Computer Science student at [Indian Institute
 
 # Contact me
 Email: hi \<at\> atinb \<dot\> me  
-Github: [atinbainada](https://github.com/atinbainada)
+Github: [atinbainada](https://github.com/atinbainada)  
+StackOverflow: [atin](https://stackoverflow.com/users/12011589/atin)
+
